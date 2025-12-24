@@ -2,7 +2,9 @@
   "name": "complete",
   "module": "/src/index.ts",
   "type": "module",
-  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "^1.2.7",
     "@types/jsonwebtoken": "^9.0.9"

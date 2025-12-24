@@ -14,13 +14,13 @@ export function withConfig(cfg: ApiConfig, handler: HandlerWithConfig) {
   return (req: BunRequest) => handler(cfg, req);
 }
 
-export function cacheMiddleware(
-  next: (req: Request) => Response | Promise<Response>,
+export function noCacheMiddleware(
+  next: (req: Request) => Response | Promise<Response>
 ): (req: Request) => Promise<Response> {
   return async function (req: Request): Promise<Response> {
     const res = await next(req);
     const headers = new Headers(res.headers);
-    headers.set("Cache-Control", "max-age=3600");
+    headers.set("Cache-Control", "no-store");
 
     return new Response(res.body, {
       status: res.status,
@@ -32,7 +32,7 @@ export function cacheMiddleware(
 
 export function errorHandlingMiddleware(
   cfg: ApiConfig,
-  err: unknown,
+  err: unknown
 ): Response {
   let statusCode = 500;
   let message = "Something went wrong on our end";
