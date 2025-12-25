@@ -23,13 +23,13 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
     throw new UserForbiddenError("Not authorized to update this video");
   }
 
+  const MAX_UPLOAD_SIZE = 10 << 20;
+
   const formData = await req.formData();
   const file = formData.get("thumbnail");
   if (!(file instanceof File)) {
     throw new BadRequestError("Thumbnail file missing");
   }
-
-  const MAX_UPLOAD_SIZE = 10 << 20;
 
   if (file.size > MAX_UPLOAD_SIZE) {
     throw new BadRequestError(
@@ -47,8 +47,7 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
 
   await Bun.write(assetDiskPath, file);
 
-  const urlPath = getAssetURL(cfg, assetPath);
-  video.thumbnailURL = urlPath;
+  video.thumbnailURL = getAssetURL(cfg, assetPath);
   updateVideo(cfg.db, video);
 
   return respondWithJSON(200, video);

@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync } from "fs";
 import path from "path";
 
+type Ratio = "portrait" | "landscape" | "other";
+
 import type { ApiConfig } from "../config";
 import { randomBytes } from "crypto";
 
@@ -29,6 +31,14 @@ export function getAssetDiskPath(cfg: ApiConfig, assetPath: string) {
   return path.join(cfg.assetsRoot, assetPath);
 }
 
+export function getTmpAssetDiskPath(cfg: ApiConfig, assetPath: string) {
+  return path.join(cfg.assetsRoot, "/tmp", assetPath);
+}
+
 export function getAssetURL(cfg: ApiConfig, assetPath: string) {
   return `http://localhost:${cfg.port}/assets/${assetPath}`;
+}
+
+export function getS3URL(cfg: ApiConfig, s3Key: string, ratio: Ratio) {
+  return `https://${cfg.s3Bucket}.s3.${cfg.s3Region}.amazonaws.com/${ratio}/${s3Key}`;
 }
