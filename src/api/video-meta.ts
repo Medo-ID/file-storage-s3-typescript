@@ -1,6 +1,12 @@
 import { type ApiConfig } from "../config";
 import { getBearerToken, validateJWT } from "../auth";
-import { createVideo, deleteVideo, getVideo, getVideos } from "../db/videos";
+import {
+  createVideo,
+  deleteVideo,
+  getVideo,
+  getVideos,
+  type Video,
+} from "../db/videos";
 import { respondWithJSON } from "./json";
 import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors";
 import type { BunRequest } from "bun";

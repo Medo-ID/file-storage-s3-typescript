@@ -40,5 +40,5 @@ export function getAssetURL(cfg: ApiConfig, assetPath: string) {
 }
 
 export function getS3URL(cfg: ApiConfig, s3Key: string, ratio: Ratio) {
-  return `https://${cfg.s3Bucket}.s3.${cfg.s3Region}.amazonaws.com/${ratio}/${s3Key}`;
+  return `https://${cfg.s3CfDistribution}/${ratio}/${s3Key}`;
 }

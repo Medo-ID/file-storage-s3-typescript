@@ -1,3 +1,7 @@
+import type { ApiConfig } from "../config";
+import type { Video } from "../db/videos";
+import { NotFoundError } from "./errors";
+
 export async function getVideoAspectRatio(filePath: string) {
   const proc = Bun.spawn(
     [
